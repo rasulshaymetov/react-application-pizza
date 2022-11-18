@@ -27,7 +27,7 @@ export const Categories = () => {
             </li>
           );
         })}
-        <Sort/>
+        
       </ul>
     </div>
   );

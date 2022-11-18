@@ -10,11 +10,18 @@ $duration: 0.15s;
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
+ 
 
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and(max-width:645px){
+      flex-direction: column;
+      .header__cart{
+        margin-top: 20px;
+      }
+    }
   }
 
   &__logo {

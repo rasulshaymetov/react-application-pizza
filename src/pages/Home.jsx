@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Pizza } from "../components/Pizza";
+import { Sort } from "../components/Sort";
 import { Categories } from "../components/Categories";
 import Skeleton from "../components/Pizza/Skeleton";
 export const Home = () => {
@@ -20,15 +21,16 @@ export const Home = () => {
   }, []);
   return (
     <>
-      
-        <div className="content__top">  <Categories /></div>
-        <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-          {isLoading
-            ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : pizzaItems.map((obj) => <Pizza key={obj.id} {...obj} />)}
-        </div>
-      
+      <div className="content__top">
+    
+        <Categories /> <Sort />
+      </div>
+      <h2 className="content__title">Все пиццы</h2>
+      <div className="content__items">
+        {isLoading
+          ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+          : pizzaItems.map((obj) => <Pizza key={obj.id} {...obj} />)}
+      </div>
     </>
   );
 };
