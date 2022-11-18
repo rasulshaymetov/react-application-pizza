@@ -13,14 +13,13 @@ export const Home = () => {
         "https://6375ff1eb5f0e1eb85ff4f3c.mockapi.io/Pizzas"
       );
       setPizzaItems(PizzasData.data);
+      setIsLoading(false)
     }
     fetchdata();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    window.scrollTo(0,0)
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
     
         <Categories /> <Sort />
@@ -31,6 +30,6 @@ export const Home = () => {
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzaItems.map((obj) => <Pizza key={obj.id} {...obj} />)}
       </div>
-    </>
+    </div>
   );
 };
