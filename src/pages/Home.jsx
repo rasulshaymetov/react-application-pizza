@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Pizza } from "../components/Pizza";
 import ReactPaginate from 'react-paginate';
@@ -6,7 +6,9 @@ import { Sort } from "../components/Sort";
 import { Categories } from "../components/Categories";
 import Skeleton from "../components/Pizza/Skeleton";
 import { Pagination } from "../components/Pagination.jsx";
-export const Home = ({ searchValue }) => {
+import AppContext from "../context";
+export const Home = () => {
+  const {searchValue} = useContext(AppContext)
   const [pizzaItems, setPizzaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState({

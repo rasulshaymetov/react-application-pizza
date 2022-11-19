@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import AppContext from "../context";
 import { Search } from "./Seacrh";
-export const Header = ({ searchValue, setSearchValue }) => {
+export const Header = () => {
+  const {searchValue, setSearchValue} = useContext(AppContext)
   return (
     <div className="header">
       <div className="container">
