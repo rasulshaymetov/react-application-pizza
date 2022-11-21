@@ -1,21 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
+import ReactPaginate from "react-paginate";
+import Skeleton from "../components/Pizza/Skeleton";
 import axios from "axios";
+import { setCategoryId } from "../redux/slices/filterSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Pizza } from "../components/Pizza";
-import ReactPaginate from 'react-paginate';
 import { Sort } from "../components/Sort";
 import { Categories } from "../components/Categories";
-import Skeleton from "../components/Pizza/Skeleton";
 import { Pagination } from "../components/Pagination.jsx";
+
 import AppContext from "../context";
+
 export const Home = () => {
-  const {searchValue} = useContext(AppContext)
+  const dispatch = useDispatch();
+  const categoryId = useSelector((state) => state.filter.categoryId);
+
+  function onClickCategory(id) {
+    dispatch(setCategoryId(id));
+  }
+
+  const { searchValue } = useContext(AppContext);
   const [pizzaItems, setPizzaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState({
     name: "популярности",
     sortProperty: "rating",
   });
-  const [categoryId, setCategoryId] = React.useState(0);
+ 
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     setIsLoading(true);
@@ -44,13 +56,13 @@ export const Home = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onClickCategory={(index) => setCategoryId(index)}
+          onClickCategory={onClickCategory}
         />
         <Sort value={sort} onClickSort={(index) => setSort(index)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>
-      <Pagination onChangePage={(number => setCurrentPage(number))}/>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 };

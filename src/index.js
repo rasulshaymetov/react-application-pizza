@@ -20,5 +20,5 @@ const router = createBrowserRouter([
 root.render(
     <Provider store={store}>
         <RouterProvider router={router}/>
-    </Provider>
+    </Provider >
 )
