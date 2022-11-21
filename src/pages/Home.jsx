@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import ReactPaginate from "react-paginate";
 import Skeleton from "../components/Pizza/Skeleton";
 import axios from "axios";
-import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Pizza } from "../components/Pizza";
@@ -13,10 +13,11 @@ import { Pagination } from "../components/Pagination.jsx";
 import AppContext from "../context";
 
 export const Home = () => {
+
+
   const dispatch = useDispatch();
-  const {categoryId, sort} = useSelector((state) => state.filter)
-
-
+  const {categoryId, sort, currentPage} = useSelector((state) => state.filter)
+  
   function onClickCategory(id) {
     dispatch(setCategoryId(id));
   }
@@ -26,7 +27,6 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
 
  
-  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     setIsLoading(true);
     const order = sort.sortProperty.includes("-") ? "desc" : "asc";
@@ -49,7 +49,11 @@ export const Home = () => {
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  return (
+  const onChangePage = number => {
+    dispatch(setCurrentPage(number))
+
+  }
+   return (
     <div className="container">
       <div className="content__top">
         <Categories
@@ -60,7 +64,7 @@ export const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };

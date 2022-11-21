@@ -18,7 +18,7 @@ function App() {
           setSearchValue,
         }}
       >
-        {" "}
+     
         <div className="wrapper">
           <Header />
 
