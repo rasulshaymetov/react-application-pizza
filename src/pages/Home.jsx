@@ -14,26 +14,24 @@ import AppContext from "../context";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filter.categoryId);
+  const {categoryId, sort} = useSelector((state) => state.filter)
+
 
   function onClickCategory(id) {
     dispatch(setCategoryId(id));
   }
-
+ 
   const { searchValue } = useContext(AppContext);
   const [pizzaItems, setPizzaItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sort, setSort] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
+
  
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     setIsLoading(true);
     const order = sort.sortProperty.includes("-") ? "desc" : "asc";
     const replacing = sort.sortProperty.replace("-", "");
-    const category = categoryId > 0 ? `category=${categoryId}` : " ";
+    const category = categoryId.categoryId > 0 ? `category=${categoryId}` : " ";
     const search = searchValue ? `title=${searchValue}` : " ";
 
     async function fetchdata() {
@@ -58,7 +56,7 @@ export const Home = () => {
           value={categoryId}
           onClickCategory={onClickCategory}
         />
-        <Sort value={sort} onClickSort={(index) => setSort(index)} />
+        <Sort/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeleton : pizzas}</div>
