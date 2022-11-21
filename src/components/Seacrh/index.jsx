@@ -1,20 +1,38 @@
 import React from "react";
-
+import debounce from "lodash.debounce";
 import styles from "../Seacrh/Search.module.scss";
+import { useRef } from "react";
 
 export const Search = ({ searchValue, setSearchValue }) => {
+  const inputRef = useRef();
+  const [value, setValue] = React.useState('')
+   const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 250),
+    []
+  );
+  const onChangeInput = event => {
+    setValue(event.target.value)
+    updateSearchValue(event.target.value)
+  }
+  const onClickClear = () => {
+    setSearchValue("");
+    setValue("");
+    inputRef.current.focus();
+  };
   return (
     <div className={styles.root}>
       <input
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         type="text"
         placeholder="Поиск пиццы..."
       />
       <svg
-      className={styles.icon}
-      onClick={() => setSearchValue('')}
+        className={styles.icon}
+        onClick={onClickClear}
         height="48"
         viewBox="0 0 48 48"
         width="48"
