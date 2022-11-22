@@ -1,25 +1,23 @@
 import React from "react";
 import debounce from "lodash.debounce";
 import styles from "../Seacrh/Search.module.scss";
-import { useRef } from "react";
 
-export const Search = ({ searchValue, setSearchValue }) => {
-  const inputRef = useRef();
+export const Search = ({ setSearchValue }) => {
   const [value, setValue] = React.useState('')
-   const updateSearchValue = React.useCallback(
+  const onChangeInput = event => {
+    setValue(event.target.value)
+    updateSearchValue(event.target.value)
+  }
+  const updateSearchValue = React.useCallback(
     debounce((str) => {
       setSearchValue(str);
     }, 250),
     []
   );
-  const onChangeInput = event => {
-    setValue(event.target.value)
-    updateSearchValue(event.target.value)
-  }
+
   const onClickClear = () => {
     setSearchValue("");
     setValue("");
-    inputRef.current.focus();
   };
   return (
     <div className={styles.root}>

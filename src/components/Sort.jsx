@@ -1,18 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {setSort} from "../redux/slices/filterSlice";
+import { setSort } from "../redux/slices/filterSlice";
 export const sorts = [
-  { name: "популярности (по возрастанию)", sortProperty: "rating" },
-  { name: "популярности (по убыванию)", sortProperty: "-rating" },
-  { name: "цене (по возрастанию)", sortProperty: "price" },
-  { name: "цене (по убыванию)", sortProperty: "-price" },
-  { name: "алфавиту (по возрастанию)", sortProperty: "title" },
-  { name: "алфавиту (по убыванию)", sortProperty: "-title" },
+  { name: "популярности (по возрастанию)", sortProperty: "rating" , id: 1},
+  { name: "популярности (по убыванию)", sortProperty: "-rating", id: 2 },
+  { name: "цене (по возрастанию)", sortProperty: "price", id: 3 },
+  { name: "цене (по убыванию)", sortProperty: "-price", id: 4 },
+  { name: "алфавиту (по возрастанию)", sortProperty: "title" , id: 5},
+  { name: "алфавиту (по убыванию)", sortProperty: "-title" , id: 6},
 ];
 export const Sort = () => {
   const dispatch = useDispatch();
   const sortName = useSelector((state) => state.filter.sort.name);
-  console.log(sortName)
   const [isActive, setIsActive] = React.useState(false);
   function showPopup() {
     setIsActive((prev) => !prev);
@@ -21,9 +20,19 @@ export const Sort = () => {
     dispatch(setSort(obj))
     setIsActive(false);
   }
- 
+  const sortRef = React.useRef()
+  useEffect(() => {
+    document.body.addEventListener('click', event => {
+      if (!event.path.includes(sortRef.current)) {
+        setIsActive(false)
+      }
+
+    })
+  }, [])
+
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           className={`${isActive ? "opened" : ""}`}
@@ -47,12 +56,11 @@ export const Sort = () => {
           <ul>
             {sorts.map((sort, i) => (
               <li
-                key={sort}
-                className={`${
-                  sort.sortProperty !== sort.sortProperty ? "active" : null
-                }`}
+                key={sort.id}
+                className={`${sort.sortProperty === '' ? "active" : null
+                  }`}
                 onClick={() => selectSort(sort)}
-                {...sort}
+                name={sort.name}
               >
                 {sort.name}
               </li>

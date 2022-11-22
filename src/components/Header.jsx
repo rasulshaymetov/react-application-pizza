@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AppContext from "../context";
 import { Search } from "./Seacrh";
 export const Header = () => {
-  const {searchValue, setSearchValue} = useContext(AppContext)
+  const { searchValue, setSearchValue } = useContext(AppContext)
   return (
     <div className="header">
       <div className="container">
@@ -19,7 +19,7 @@ export const Header = () => {
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         <Link to="/cart">
           <div className="header__cart">
-            <a href="/cart.html" className="button button--cart">
+            <div className="button button--cart">
               <span>520 ₽</span>
               <div className="button__delimiter"></div>
               <svg
@@ -52,10 +52,10 @@ export const Header = () => {
                 />
               </svg>
               <span>3</span>
-            </a>
+            </div>
           </div>
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}

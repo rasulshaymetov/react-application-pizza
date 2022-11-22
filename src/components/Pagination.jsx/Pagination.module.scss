@@ -1,36 +1,29 @@
-.root{
+.root {
+  lI {
+    display: inline-block;
 
-   lI{
-    display: inline-block;
-  
- 
-  a{
-    width: 45px;
-    height: 45px;
-    text-align: center;;
-    line-height: 42px;
-    margin-right: 10px;
-    border: 1px solid #fe5f1e;
-    display: inline-block;
-    border-radius: 30px;
-    cursor: pointer;
-    color: #fe5f1e;
-    &:hover{
-    
-   
+    a {
+      width: 45px;
+      height: 45px;
+      text-align: center;
+      line-height: 42px;
+      margin-right: 10px;
+      border: 1px solid #fe5f1e;
+      display: inline-block;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fe5f1e;
+      &:hover {
+      }
     }
   }
- }
 
- :global{
-     .selected{
-      
-      a{
+  :global {
+    .selected {
+      a {
         color: #fff;
         background-color: #fe5f1e;
-      
+      }
     }
-   
   }
- }
 }

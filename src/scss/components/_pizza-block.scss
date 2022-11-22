@@ -1,4 +1,3 @@
-// @import 'vars';
 $black: #232323;
 $background: #ffdf8c;
 $gray-line: #f6f6f6;
@@ -13,10 +12,9 @@ $duration: 0.15s;
   text-align: center;
   margin-bottom: 65px;
 
-  &-wrapper{
+  &-wrapper {
     display: flex;
     justify-content: center;
-
   }
   &__image {
     width: 260px;
