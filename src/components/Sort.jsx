@@ -22,12 +22,16 @@ export const Sort = () => {
   }
   const sortRef = React.useRef()
   useEffect(() => {
-    document.body.addEventListener('click', event => {
-      if (!event.path.includes(sortRef.current)) {
-        setIsActive(false)
-      }
-
-    })
+    const handleClickOutside = (event) => {
+        if (!event.path.includes(sortRef.current)) {
+          setIsActive(false)
+          console.log('Click outside')
+        }
+  
+      
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
 
@@ -60,7 +64,7 @@ export const Sort = () => {
                 className={`${sort.sortProperty === '' ? "active" : null
                   }`}
                 onClick={() => selectSort(sort)}
-                name={sort.name}
+                name={sort.name }
               >
                 {sort.name}
               </li>

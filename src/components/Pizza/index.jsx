@@ -1,7 +1,24 @@
 import React, { useState } from "react";
-
-export const Pizza = ({ title, price, imageUrl, sizes, types }) => {
+import {addProduct} from "../../redux/slices/cartSlice";
+import{useSelector, useDispatch} from 'react-redux'
+export const Pizza = ({id, title, price, imageUrl, sizes, types }) => {
   const [total, setTotal] = useState(0);
+  const cartItems = useSelector(state => state.cart.items.find(obj => obj.id === id))
+  const dispatch = useDispatch()
+  const addedCount = cartItems ? cartItems.count: 0
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type:typeName[activeType],
+      size:sizes[activeSize]
+    }
+    dispatch(addProduct(item))
+    
+  }
+
   const addTotal = () => {
     setTotal(total + 1);
   };
@@ -32,7 +49,7 @@ export const Pizza = ({ title, price, imageUrl, sizes, types }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div onClick={addTotal} className="button button--outline button--add">
+        <div onClick={onClickAdd} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -46,7 +63,7 @@ export const Pizza = ({ title, price, imageUrl, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>{total}</i>
+          {addedCount > 0 && <i>{addedCount}</i>}
         </div>
       </div>
     </div></div>
