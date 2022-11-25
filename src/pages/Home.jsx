@@ -5,14 +5,15 @@ import axios from "axios";
 import qs from "qs";
 
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPizza } from "../redux/slices/pizzaSlice";
+import { fetchPizza, selectPizzaProperties } from "../redux/slices/pizzaSlice";
 
-import {NotFound} from "../pages/NotFound"
+import { NotFound } from "../pages/NotFound"
 import { Pizza } from "../components/Pizza";
 import { Sort, sorts } from "../components/Sort";
 import { Categories } from "../components/Categories";
@@ -21,16 +22,13 @@ import { Pagination } from "../components/Pagination.jsx";
 import AppContext from "../context";
 
 export const Home = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false)
   const isMounted = useRef(false)
-  const { status, items } = useSelector(
-    (state) => state.pizza
-  );
+  const { status, items } = useSelector(selectPizzaProperties);
   const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
+    selectFilter
   );
 
   function onClickCategory(id) {

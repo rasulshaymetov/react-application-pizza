@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {addProduct} from "../../redux/slices/cartSlice";
+import {addProduct, selectCartItemById} from "../../redux/slices/cartSlice";
 import{useSelector, useDispatch} from 'react-redux'
 export const Pizza = ({id, title, price, imageUrl, sizes, types }) => {
   const [total, setTotal] = useState(0);
-  const cartItems = useSelector(state => state.cart.items.find(obj => obj.id === id))
+  const cartItems = useSelector(selectCartItemById)
   const dispatch = useDispatch()
   const addedCount = cartItems ? cartItems.count: 0
   const onClickAdd = () => {
@@ -16,7 +16,7 @@ export const Pizza = ({id, title, price, imageUrl, sizes, types }) => {
       size:sizes[activeSize]
     }
     dispatch(addProduct(item))
-    
+      console.log(item.id)
   }
 
   const addTotal = () => {
