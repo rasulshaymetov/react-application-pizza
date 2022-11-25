@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AppContext from "../context";
 import { Search } from "./Seacrh";
-import {useSelector } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import { selectCart } from "../redux/slices/cartSlice";
+import { setSearchValue } from "../redux/slices/filterSlice";
 export const Header = () => {
-  const { searchValue, setSearchValue } = useContext(AppContext)
   const {items, totalPrice} = useSelector(selectCart)
   const totalCount = items.reduce((sum,item) => sum + item.count, 0)
+  const {searchValue} = useSelector(state => state.filter)
   return (
     <div className="header">
       <div className="container">

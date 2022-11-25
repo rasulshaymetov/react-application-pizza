@@ -8,16 +8,11 @@ import { NotFound } from "./pages/NotFound";
 
 import AppContext from "./context";
 function App() {
-  const [searchValue, setSearchValue] = useState("");
+
+  
 
   return (
     <div className="App">
-      <AppContext.Provider
-        value={{
-          searchValue,
-          setSearchValue,
-        }}
-      >
 
         <div className="wrapper">
           <Header />
@@ -32,7 +27,6 @@ function App() {
             </div>
           </div>
         </div>
-      </AppContext.Provider>
     </div>
   );
 }

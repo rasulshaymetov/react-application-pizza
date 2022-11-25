@@ -27,10 +27,10 @@ export const Home = () => {
   const isSearch = useRef(false)
   const isMounted = useRef(false)
   const { status, items } = useSelector(selectPizzaProperties);
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     selectFilter
   );
-
+  console.log(searchValue + 'sыыd')
   function onClickCategory(id) {
     dispatch(setCategoryId(id));
   }
@@ -46,7 +46,6 @@ export const Home = () => {
     }
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
-  const { searchValue } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
 
 
@@ -66,7 +65,7 @@ export const Home = () => {
 
     } pizzaFetch()
     isSearch.current = false
-  }, []);
+  }, [searchValue]);
 
 
   React.useEffect(() => {
