@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "../components/Pizza/Skeleton";
-import axios from "axios";
+
 import qs from "qs";
 
 import {
@@ -19,7 +19,7 @@ import { Sort, sorts } from "../components/Sort";
 import { Categories } from "../components/Categories";
 import { Pagination } from "../components/Pagination.jsx";
 
-import AppContext from "../context";
+
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -85,8 +85,8 @@ export const Home = () => {
     }
   }, []);
 
-
-  const pizzas = items.map((obj) => <Pizza key={obj.id} {...obj} />);
+ 
+  const pizzas = items.map((obj) => <Pizza {...obj} />);
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));

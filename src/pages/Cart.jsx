@@ -15,10 +15,9 @@ export const Cart = () => {
   const { totalPrice, items } = useSelector(selectCart)
   const totalCount = items.reduce((sum, item) => sum + item.count, 0)
 
-
-  if(totalPrice <= 0){
+  if (totalPrice <= 0) {
     return (
-      <CartEmpty/>
+      <CartEmpty />
     )
   }
 

@@ -1,24 +1,29 @@
 import React, { useState } from "react";
-import {addProduct, selectCartItemById} from "../../redux/slices/cartSlice";
-import{useSelector, useDispatch} from 'react-redux'
-export const Pizza = ({id, title, price, imageUrl, sizes, types }) => {
+import { useNavigate } from "react-router-dom";
+import { addProduct, selectCartItemById } from "../../redux/slices/cartSlice";
+import { useSelector, useDispatch } from 'react-redux'
+export const Pizza = ({ id, title, price, imageUrl, sizes, types, handleGetInfo }) => {
   const [total, setTotal] = useState(0);
   const cartItems = useSelector(selectCartItemById)
   const dispatch = useDispatch()
-  const addedCount = cartItems ? cartItems.count: 0
+  const navigate = useNavigate()
+  const addedCount = cartItems ? cartItems.count : 0
   const onClickAdd = () => {
     const item = {
       id,
       title,
       price,
       imageUrl,
-      type:typeName[activeType],
-      size:sizes[activeSize]
+      type: typeName[activeType],
+      size: sizes[activeSize]
     }
     dispatch(addProduct(item))
-      console.log(item.id)
+    console.log(item.id)
   }
-
+  function onLink() {
+    const item = { id }
+    navigate(`/pizza/${item.id}`)
+  }
   const addTotal = () => {
     setTotal(total + 1);
   };
@@ -33,12 +38,14 @@ export const Pizza = ({id, title, price, imageUrl, sizes, types }) => {
   }
   return (
     <div className="pizza-block-wrapper">  <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={imageUrl}
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">{title}</h4>
+      <div onClick={onLink} className="pizza-block-link-wrapper">
+        <img
+          className="pizza-block__image"
+          src={imageUrl}
+          alt="Pizza"
+        />
+        <h4 className="pizza-block__title">{title}</h4>
+      </div>
       <div className="pizza-block__selector">
         <ul>
           {types.map((type, i) => <li onClick={() => addType(i)} className={`${activeType === i ? 'active' : null}`} key={i}>{typeName[type]}</li>)}

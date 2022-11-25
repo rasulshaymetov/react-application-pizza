@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AppContext from "../context";
 import { Search } from "./Seacrh";
 import {useDispatch, useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ export const Header = () => {
   const {items, totalPrice} = useSelector(selectCart)
   const totalCount = items.reduce((sum,item) => sum + item.count, 0)
   const {searchValue} = useSelector(state => state.filter)
+  const path = useLocation().pathname
   return (
     <div className="header">
       <div className="container">
@@ -23,7 +24,7 @@ export const Header = () => {
         </Link>
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         <Link to="/cart">
-          <div className="header__cart">
+          {path == '/cart' ? null : (<div  className="header__cart">
             <div className="button button--cart">
               <span>{totalPrice} ₽</span>
               <div className="button__delimiter"></div>
@@ -58,7 +59,7 @@ export const Header = () => {
               </svg>
               <span>{totalCount}</span>
             </div>
-          </div>
+          </div>)} 
         </Link>
       </div>
     </div>

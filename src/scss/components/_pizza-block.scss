@@ -16,6 +16,9 @@ $duration: 0.15s;
     display: flex;
     justify-content: center;
   }
+  &-link-wrapper{
+    cursor: pointer;
+  }
   &__image {
     width: 260px;
   }
